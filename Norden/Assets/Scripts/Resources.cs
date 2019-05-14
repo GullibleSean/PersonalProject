@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class Resources : MonoBehaviour
-{    
+{
     public virtual void Triggered()
     {
 
@@ -11,7 +13,6 @@ public class Resources : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            //GameManager.Instance.AddDollars(Dollars);
             Triggered();
         }
     }
