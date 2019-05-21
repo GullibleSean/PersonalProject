@@ -927,15 +927,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d09bc9a5cd35a10488d796e76683f64d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
   allUnits: []
   selectionSquareTrans: {fileID: 1615840461}
-  sphere1: {fileID: 1185104473}
-  sphere2: {fileID: 1908596427}
-  sphere3: {fileID: 658250573}
-  sphere4: {fileID: 404227761}
-  normalMaterial: {fileID: 0}
-  highlightMaterial: {fileID: 0}
-  selectedMaterial: {fileID: 0}
+  corner1: {fileID: 1185104473}
+  corner2: {fileID: 1908596427}
+  corner3: {fileID: 658250573}
+  corner4: {fileID: 404227761}
+  normalMaterial: {fileID: 2100000, guid: 281c15778738b744ea30be11cbc76acd, type: 2}
+  highlightMaterial: {fileID: 2100000, guid: 8c9f29f81255d86458053e48f60a979e, type: 2}
+  selectedMaterial: {fileID: 2100000, guid: d373019bec583274486355f5ecb18584, type: 2}
+  delay: 0
+  clickTime: 0
 --- !u!114 &845303599
 MonoBehaviour:
   m_ObjectHideFlags: 0

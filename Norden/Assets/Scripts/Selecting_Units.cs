@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class Selecting_Units : MonoBehaviour
 {
+    //Sean
+    [SerializeField] public LayerMask layerMask;
+
     //Add all units in the scene to this array
     public GameObject[] allUnits;
+
     //The selection square we draw when we drag the mouse to select units
-    public RectTransform selectionSquareTrans;
+    [SerializeField] public RectTransform selectionSquareTrans;
     //To test the square's corners
-    public Transform sphere1;
-    public Transform sphere2;
-    public Transform sphere3;
-    public Transform sphere4;
-    //The materials
+    [SerializeField] private Transform corner1;
+    [SerializeField] private Transform corner2;
+    [SerializeField] private Transform corner3;
+    [SerializeField] private Transform corner4;
+    //The materials  
     public Material normalMaterial;
     public Material highlightMaterial;
     public Material selectedMaterial;
@@ -27,8 +31,8 @@ public class Selecting_Units : MonoBehaviour
     GameObject highlightThisUnit;
 
     //To determine if we are clicking with left mouse or holding down left mouse
-    float delay = 0.3f;
-    float clickTime = 0f;
+    [SerializeField] private float delay;
+    [SerializeField] private float clickTime;
     //The start and end coordinates of the square we are making
     Vector3 squareStartPos;
     Vector3 squareEndPos;
@@ -67,56 +71,18 @@ public class Selecting_Units : MonoBehaviour
             //We dont yet know if we are drawing a square, but we need the first coordinate in case we do draw a square
             RaycastHit hit;
             //Fire ray from camera
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 200f, 1 << 8))
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 200f, layerMask))
             {
+                Debug.DrawLine(transform.position, hit.point, Color.green, 2);
                 //The corner position of the square
                 squareStartPos = hit.point;
             }
         }
-        //Release the mouse button
-        if (Input.GetMouseButtonUp(0))
-        {
-            if (Time.time - clickTime <= delay)
-            {
-                isClicking = true;
-            }
 
-            //Select all units within the square if we have created a square
-            if (hasCreatedSquare)
-            {
-                hasCreatedSquare = false;
-
-                //Deactivate the square selection image
-                selectionSquareTrans.gameObject.SetActive(false);
-
-                //Clear the list with selected unit
-                selectedUnits.Clear();
-
-                //Select the units
-                for (int i = 0; i < allUnits.Length; i++)
-                {
-                    GameObject currentUnit = allUnits[i];
-
-                    //Is this unit within the square
-                    if (IsWithinPolygon(currentUnit.transform.position))
-                    {
-                        currentUnit.GetComponent<MeshRenderer>().material = selectedMaterial;
-
-                        selectedUnits.Add(currentUnit);
-                    }
-                    //Otherwise deselect the unit if it's not in the square
-                    else
-                    {
-                        currentUnit.GetComponent<MeshRenderer>().material = normalMaterial;
-                    }
-                }
-            }
-
-        }
         //Holding down the mouse button
         if (Input.GetMouseButton(0))
         {
-            if (Time.time - clickTime > delay)
+            if (Time.time >= delay)
             {
                 isHoldingDown = true;
             }
@@ -137,7 +103,7 @@ public class Selecting_Units : MonoBehaviour
             //Try to select a new unit
             RaycastHit hit;
             //Fire ray from camera
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 200f))
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 200f, layerMask))
             {
                 //Did we hit a friendly unit?
                 if (hit.collider.CompareTag("Friendly"))
@@ -184,6 +150,47 @@ public class Selecting_Units : MonoBehaviour
                         currentUnit.GetComponent<MeshRenderer>().material = normalMaterial;
                     }
                 }
+            }
+        }
+
+        //Release the mouse button
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (Time.time >= delay)
+            {
+                print("released");
+                isClicking = true;
+            }
+
+            //Select all units within the square if we have created a square
+            if (hasCreatedSquare)
+            {
+                //Deactivate the square selection image
+                selectionSquareTrans.gameObject.SetActive(false);
+
+                //Clear the list with selected unit
+                selectedUnits.Clear();
+
+                //Select the units
+                for (int i = 0; i < allUnits.Length; i++)
+                {
+                    GameObject currentUnit = allUnits[i];
+
+                    //Is this unit within the square
+                    if (IsWithinPolygon(currentUnit.transform.position))
+                    {
+                        currentUnit.GetComponent<MeshRenderer>().material = selectedMaterial;
+
+                        selectedUnits.Add(currentUnit);
+                    }
+                    //Otherwise deselect the unit if it's not in the square
+                    else
+                    {
+                        currentUnit.GetComponent<MeshRenderer>().material = normalMaterial;
+                    }
+                }
+
+                hasCreatedSquare = false;
             }
         }
     }
@@ -323,22 +330,22 @@ public class Selecting_Units : MonoBehaviour
         RaycastHit hit;
         int i = 0;
         //Fire ray from camera
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(TL), out hit, 200f, 1 << 8))
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(TL), out hit, 200f, layerMask))
         {
             TL = hit.point;
             i++;
         }
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(TR), out hit, 200f, 1 << 8))
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(TR), out hit, 200f, layerMask))
         {
             TR = hit.point;
             i++;
         }
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(BL), out hit, 200f, 1 << 8))
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(BL), out hit, 200f, layerMask))
         {
             BL = hit.point;
             i++;
         }
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(BR), out hit, 200f, 1 << 8))
+        if (Physics.Raycast(Camera.main.ScreenPointToRay(BR), out hit, 200f, layerMask))
         {
             BR = hit.point;
             i++;
