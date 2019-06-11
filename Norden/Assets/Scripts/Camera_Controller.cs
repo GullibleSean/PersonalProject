@@ -4,17 +4,49 @@ using UnityEngine;
 
 public class Camera_Controller : MonoBehaviour
 {
-    public float startZoom;
-    Transform cameraTransform;
+    [SerializeField] public float panSpeed;
+    [SerializeField] private float panDetect;
 
-    private void Start()
+    private float yStart;
+
+    private void Awake()
     {
-        cameraTransform = Camera.main.transform;
+        yStart = Camera.main.transform.position.y;
+    }
 
-        cameraTransform.position = Vector3.zero;
+    private void Update()
+    {
+        MoveCamera();
+    }
 
-        cameraTransform.eulerAngles = new Vector3(45f, 0f, 0f);
+    private void MoveCamera()
+    {
+        float moveX = Camera.main.transform.position.x;
+        float moveZ = Camera.main.transform.position.z;
 
-        cameraTransform .Translate(-Vector3.forward * startZoom);
+        float xPosition = Input.mousePosition.x;
+        float yPostion = Input.mousePosition.y;
+
+        if (Input.GetKey(KeyCode.LeftArrow) || xPosition > 0 && xPosition < panDetect)
+        {
+            moveX -= panSpeed;
+        }
+        else if (Input.GetKey(KeyCode.RightArrow) || xPosition < Screen.width && xPosition > Screen.width - panDetect)
+        {
+            moveX += panSpeed;
+        }
+
+        if (Input.GetKey(KeyCode.UpArrow) || yPostion < Screen.height && yPostion > Screen.height - panDetect)
+        {
+            moveZ += panSpeed;
+        }
+        else if (Input.GetKey(KeyCode.DownArrow) || yPostion > 0 && yPostion < panDetect)
+        {
+            moveZ -= panSpeed;
+        }
+
+        Vector3 newPosition = new Vector3(moveX, yStart , moveZ);
+
+        Camera.main.transform.position = newPosition;
     }
 }
