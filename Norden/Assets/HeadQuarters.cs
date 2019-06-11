@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Units : MonoBehaviour
+public class HeadQuarters : MonoBehaviour
 {
-    public float HP;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -16,10 +14,5 @@ public class Units : MonoBehaviour
     void Update()
     {
         
-    }
-
-    public void TakeDamage(float dmg)
-    {
-        HP -= dmg;
     }
 }
