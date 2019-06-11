@@ -6,20 +6,16 @@ public class Units : MonoBehaviour
 {
     public float HP;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        
+        if (HP <= 0)
+        {
+            Die();
+        }
     }
 
-    public void TakeDamage(float dmg)
+    private void Die()
     {
-        HP -= dmg;
+        gameObject.SetActive(false);
     }
 }

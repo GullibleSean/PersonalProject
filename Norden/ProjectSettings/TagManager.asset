@@ -7,6 +7,7 @@ TagManager:
   - Floor
   - Walls
   - HeadQuarters
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -17,12 +18,12 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Enemy
+  - Trigger
+  - Player
+  - Ground
+  - Pickups
+  - Walls
   - 
   - 
   - 

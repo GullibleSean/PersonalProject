@@ -12,10 +12,6 @@ public class ActivateSpawner : MonoBehaviour
         {
             Debug.LogError("Spawn Trigger doesn't have a spawner");
         }
-        else
-        {
-
-        }
     }
 
     void OnTriggerEnter(Collider other)

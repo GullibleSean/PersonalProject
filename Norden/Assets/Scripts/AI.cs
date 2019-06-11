@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AI : MonoBehaviour
 {
@@ -10,19 +11,27 @@ public class AI : MonoBehaviour
 
     public GameObject destination;
     public GameObject player;
-    int current = 0;
+    public GameObject headQuarters;
 
     private void Start()
     {
         if (destination == null)
         {
-            destination = GameObject.FindWithTag("HeadQuarters");
+            destination = GameObject.FindGameObjectWithTag("HeadQuarters");
         }
 
         if (player == null)
         {
-            player = GameObject.FindWithTag("Player");
+            player = GameObject.FindGameObjectWithTag("Player");
         }
+
+        if (headQuarters == null)
+        {
+            headQuarters = GameObject.FindGameObjectWithTag("HeadQuarters");
+        }
+
+        //NavMeshAgent agent = GetComponent<NavMeshAgent>();
+        //agent.destination = destination.transform.position;
     }
 
     private void Update()
@@ -31,16 +40,18 @@ public class AI : MonoBehaviour
         {
             Die();
         }
-
-        transform.position = Vector3.MoveTowards(transform.position, destination.transform.position, Time.deltaTime * speed);
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void OnCollisionEnter(Collision collision)
     {
-        if (other.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
-            player = other.gameObject.GetComponent<GameObject>();
-            //player.TakeDamage(damage);
+            player.GetComponent<Units>().HP -= Damage;
+
+        }
+        else if (collision.gameObject.tag == "HeadQuarters")
+        {
+            headQuarters.GetComponent<HeadQuarters>().HP -= Damage;
         }
     }
 

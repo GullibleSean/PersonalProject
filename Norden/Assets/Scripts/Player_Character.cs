@@ -10,9 +10,13 @@ public class Player_Character : MonoBehaviour
 
     private void Start()
     {
+        if (mainCamera == null)
+        {
+            mainCamera = Camera.main;
+        }
         agent = GetComponent<NavMeshAgent>();
     }
-
+ 
     private void Update()
     {
         if (Input.GetMouseButtonDown(1))

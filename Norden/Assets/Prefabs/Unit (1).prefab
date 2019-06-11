@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7154196964470557966}
   - component: {fileID: 7154196964470557961}
   - component: {fileID: 8086124809089210685}
+  - component: {fileID: 2129692654}
   m_Layer: 0
   m_Name: Unit (1)
   m_TagString: Player
@@ -118,7 +119,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7154196964470557952}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63d4951e642d89d44afd617262b67b08, type: 3}
   m_Name: 
@@ -131,7 +132,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7154196964470557952}
-  m_Enabled: 0
+  m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 25.1
@@ -160,3 +161,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unselectedMaterial: {fileID: 2100000, guid: 281c15778738b744ea30be11cbc76acd, type: 2}
   selectedMaterial: {fileID: 2100000, guid: d373019bec583274486355f5ecb18584, type: 2}
+--- !u!114 &2129692654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7154196964470557952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a97ecd7450c2304418c0589b67988f11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HP: 100

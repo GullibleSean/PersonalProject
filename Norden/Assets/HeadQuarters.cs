@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class HeadQuarters : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+    [SerializeField] public float HP;
+    public GameObject units;
+    public GameObject spawnPoint;
     void Update()
     {
-        
+        if (HP <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        gameObject.SetActive(false);
+    }
+
+    public void SpawnUnits()
+    {
+        Instantiate(units, spawnPoint.transform.position, Quaternion.identity);
     }
 }
