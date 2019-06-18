@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     [SerializeField] float totalDollars;
+    [SerializeField] public GameObject units;
+    [SerializeField] public GameObject spawnPoint;
 
     void Start()
     {
@@ -21,6 +23,15 @@ public class GameManager : MonoBehaviour
     {
         totalDollars += toAdd;
         print(totalDollars);
+    }
+
+    public void spawnUnit()
+    {
+        if (totalDollars == 100f)
+        {
+            Instantiate(units, spawnPoint.transform.position, Quaternion.identity);
+            totalDollars -= 100f;
+        }
     }
 
     

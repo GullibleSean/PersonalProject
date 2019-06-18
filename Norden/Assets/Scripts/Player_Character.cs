@@ -25,8 +25,7 @@ public class Player_Character : MonoBehaviour
             RaycastHit hit;
             
             if (Physics.Raycast(ray, out hit))
-            {
-                
+            {                
                 agent.destination = hit.point;
             }
         }

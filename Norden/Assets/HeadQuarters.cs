@@ -5,9 +5,17 @@ using UnityEngine;
 public class HeadQuarters : MonoBehaviour
 {
     [SerializeField] public float HP;
-    public GameObject units;
-    public GameObject spawnPoint;
-    void Update()
+    [SerializeField] public GameObject gameManager;
+
+    public void Awake()
+    {
+        if (gameManager == null)
+        {
+            gameManager = GameObject.FindGameObjectWithTag("GM");
+        }
+    }
+
+    private void Update()
     {
         if (HP <= 0)
         {
@@ -22,6 +30,6 @@ public class HeadQuarters : MonoBehaviour
 
     public void SpawnUnits()
     {
-        Instantiate(units, spawnPoint.transform.position, Quaternion.identity);
+        gameManager.GetComponent<GameManager>().spawnUnit();
     }
 }

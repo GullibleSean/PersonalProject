@@ -12,6 +12,7 @@ public class MySelectable : MonoBehaviour, ISelectHandler, IPointerClickHandler,
 
     [SerializeField] Material unselectedMaterial;
     [SerializeField] Material selectedMaterial;
+    [SerializeField] GameObject player;
     public void Awake()
     {
         allMySelectables.Add(this);
@@ -20,7 +21,7 @@ public class MySelectable : MonoBehaviour, ISelectHandler, IPointerClickHandler,
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.RightControl))
+        if (!Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.RightShift))
         {
             DeselectAll(eventData);
         }
@@ -31,10 +32,12 @@ public class MySelectable : MonoBehaviour, ISelectHandler, IPointerClickHandler,
     {
         currentlySelected.Add(this);
         myRenderer.material = selectedMaterial;
+        canMove();
     }
     public void OnDeselect(BaseEventData eventData)
     {
-        myRenderer.material = unselectedMaterial; 
+        myRenderer.material = unselectedMaterial;
+        cannotMove();
     }
 
     public static void DeselectAll(BaseEventData eventData)
@@ -44,5 +47,29 @@ public class MySelectable : MonoBehaviour, ISelectHandler, IPointerClickHandler,
             selectable.OnDeselect(eventData);
         }
         currentlySelected.Clear();
+    }
+
+    public void canMove()
+    {
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
+        else if (player != null)
+        {
+            player.GetComponent<Player_Character>().enabled = true;
+        }
+    }
+
+    public void cannotMove()
+    {
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
+        else if (player != null)
+        {
+            player.GetComponent<Player_Character>().enabled = false;
+        }
     }
 }
